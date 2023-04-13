@@ -82,3 +82,25 @@ def ServoPosRead(id):
     data = {}
     data[res[5]] = res[6] | res[7] << 8
     return data
+
+
+def deg2serialAngle(deg):
+    min = 0
+    max = 240 
+    if min <= deg <= max:
+        angle = int(1000/max*deg)
+    else:
+        # whereas
+        angle = 0
+    return angle
+
+def serialAngle2deg(angle):
+    max = 1000
+    min = 0
+    eps = 5
+    if min - eps <= angle <= max + eps:
+        deg = int(240/max*angle)
+    else:
+        # 0°の状態での取得値が6万になる事があるため
+        deg = 0
+    return deg
